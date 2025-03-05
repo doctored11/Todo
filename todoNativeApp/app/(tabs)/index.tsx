@@ -8,6 +8,7 @@ import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { Navbar } from "@/components/Navbar";
 import { AddTodo } from "@/components/AddTodo";
+import { Todo } from "@/components/Todo";
 
 interface Todo {
   id: string;
@@ -28,6 +29,10 @@ export default function HomeScreen() {
     });
   };
 
+  const removeTodo = (id: string) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
   return (
     <SafeAreaView style={styles.main}>
       <Navbar title="Td app" />
@@ -36,7 +41,7 @@ export default function HomeScreen() {
         <AddTodo onSubmit={addTodo}></AddTodo>
         <View>
           {todos.map((todo) => {
-            return <Text key={todo.id}>{todo.title}</Text>;
+            return <Todo key={todo.id} todo={todo} onDelete={removeTodo} />;
           })}
         </View>
       </View>
